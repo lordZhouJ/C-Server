@@ -1,7 +1,21 @@
+/*git使用技巧：
+ *git push  是将本地代码提交到远端服务器;
+ *git add .  提交代码先要做的事情。
+ *
+ *
+ * vim 下编译命令：
+ * g++  server_tcp.cpp main.cpp  -o main -lpthread
+ *
+ * vim 运行便以后程序的命令：
+ * ./main
+ *
+*/
 
 #include "server_tcp.h"
 #include <stdio.h>
 #include <errno.h>
+
+#define MAX_LISTEN_NUM  2
 
 using namespace std;
 
@@ -59,7 +73,8 @@ void ServerTcp::threadMainOfServer()
 void ServerTcp::ServerMainFunc(int  serv_sock)
 {
     //进入监听状态，等待用户发起请求
-    if(listen(serv_sock, 20) !=0)
+    //这里的max_listen_num,是不是接受最大数目的意思？
+    if(listen(serv_sock, MAX_LISTEN_NUM) !=0)
     {
 	perror("bind");
 
